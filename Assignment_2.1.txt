@@ -1,0 +1,87 @@
+# 1. Create Users
+sudo useradd -m neha
+sudo useradd -m vipul
+sudo useradd -m abhishek
+
+# 2. Create Groups
+sudo groupadd linux
+sudo groupadd sigma
+sudo groupadd alpha
+
+# 4. Change Primary Group
+sudo usermod -g sigma neha
+sudo usermod -g sigma abhishek
+
+# 5. Add to Secondary Group
+sudo usermod -aG linux neha
+sudo usermod -aG linux abhishek
+
+# 7. Create Additional Users and Add to Groups
+sudo useradd -m -G linux,alpha nikhil
+sudo useradd -m -G linux,alpha priyashi
+
+# 8. Set Home Directory Permissions
+   user in neha vipul abhishek nikhil priyashi;
+    sudo chmod 751 /home/$user
+
+
+# 9. Create Directory Structures
+    user in neha vipul abhishek nikhil priyashi; 
+    sudo mkdir -p /home/$user/team
+    sudo mkdir -p /home/$user/linux
+
+
+# 10. Set Permissions for 'team' Directories
+    user in neha abhishek; 
+    sudo chgrp sigma /home/$user/team
+    sudo chmod 770 /home/$user/team
+
+
+    user in nikhil priyashi; 
+    sudo chgrp alpha /home/$user/team
+    sudo chmod 770 /home/$user/team
+
+sudo chgrp linux /home/vipul/team
+sudo chmod 770 /home/vipul/team
+
+# 11. Set Permissions for 'linux' Directories
+    user in neha vipul abhishek nikhil priyashi;
+    sudo chgrp linux /home/$user/linux
+    sudo chmod 770 /home/$user/linux
+
+
+# 12. Check Access
+sudo -u priyashi ls /home/neha/team
+
+# 13. Change vipul's Shell
+sudo usermod -s /usr/sbin/nologin vipul
+
+# 14. Force Password Change for abhishek
+sudo chage -d 0 abhishek
+
+# 15. Change nikhil's Password
+sudo passwd nikhil
+# Or non-interactively:
+echo "nikhil:NewSecureP@ssw0rd" | sudo chpasswd
+
+# 16. List Users and Groups
+getent passwd neha vipul abhishek nikhil priyashi
+getent group linux sigma alpha
+
+# 17. Check neha's Default Shell
+getent passwd neha | cut -d: -f7
+
+# 18. Check and Change umask
+umask
+echo "umask 027" | sudo tee -a /etc/profile
+
+# 19. Delete vipul
+sudo userdel -r vipul
+
+# 20. Delete linux Group
+sudo deluser neha linux
+sudo deluser abhishek linux
+sudo deluser nikhil linux
+sudo deluser priyashi linux
+sudo groupdel linux
+

@@ -1,0 +1,24 @@
+---
+software_list:
+  - git
+
+users:
+  - name: "deploy"
+    uid: 1001
+    home: "/home/deploy"
+
+git_repos:
+  - repo_url: "https://github.com/Suchismita14/test.git"
+    dest: "/opt/repos/repo"
+    branch: "main"
+
+folder_structure:
+  - path: "/home/ubuntu/data/logs"
+    mode: "0755"
+  - path: "/home/ubuntu/data/backups"
+    mode: "0700"
+
+services:
+  - name: "nginx"
+    state: "started"
+    enabled: true

@@ -1,0 +1,5 @@
+---
+# CentOS & Ubuntu
+aerospike_user: "aerospike"
+aerospike_group: "aerospike"
+

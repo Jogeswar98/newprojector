@@ -1,0 +1,8 @@
+---
+- name: Ensure required directories are present
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode | default('0755') }}"
+  loop: "{{ folder_structure }}"
+  when: folder_structure is defined

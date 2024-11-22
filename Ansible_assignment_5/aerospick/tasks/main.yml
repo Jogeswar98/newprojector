@@ -1,0 +1,41 @@
+---
+# tasks/main.yml
+---
+- name: Install Aerospike on Ubuntu
+  when: ansible_facts['os_family'] == "Debian"
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ aerospike_packages.ubuntu }}"
+
+- name: Install Aerospike on CentOS
+  when: ansible_facts['os_family'] == "RedHat"
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ aerospike_packages.centos }}"
+
+- name: Download Aerospike version
+  get_url:
+    url: "{{ aerospike_download_url }}"
+    dest: "/tmp/aerospike-server-{{ aerospike_version }}.tgz"
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Extract Aerospike package
+  unarchive:
+    src: "/tmp/aerospike-server-{{ aerospike_version }}.tgz"
+    dest: "/opt"
+    remote_src: yes
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Configure Aerospike
+  template:
+    src: "aerospike.conf.j2"
+    dest: "{{ aerospike_config_file }}"
+    owner: "{{ aerospike_user }}"
+    group: "{{ aerospike_group }}"
+    mode: "0644"
+  notify:
+    - Restart Aerospike
+
+

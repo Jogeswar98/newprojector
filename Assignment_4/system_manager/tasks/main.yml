@@ -1,0 +1,6 @@
+---
+- import_tasks: install_software.yml
+- import_tasks: manage_users.yml
+- import_tasks: manage_git_repos.yml
+- import_tasks: create_folders.yml
+- import_tasks: system_settings.yml

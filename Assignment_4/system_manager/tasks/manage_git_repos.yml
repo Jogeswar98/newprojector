@@ -1,0 +1,17 @@
+---
+- name: Ensure Git repositories are cloned and up-to-date
+  git:
+    repo: "{{ item.repo_url }}"
+    dest: "{{ item.dest }}"
+    version: "{{ item.branch | default('main') }}"
+    force: yes
+  loop: "{{ git_repos }}"
+  when: git_repos is defined
+
+- name: Check the status of repositories
+  ansible.builtin.command:
+    cmd: git status
+    chdir: "{{ item.dest }}"
+  register: git_status
+  ignore_errors: yes
+  loop: "{{ git_repos }}"

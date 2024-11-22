@@ -1,0 +1,9 @@
+---
+- name: Ensure users are present on the system
+  user:
+    name: "{{ item.name }}"
+    uid: "{{ item.uid | default(omit) }}"
+    home: "{{ item.home | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ users }}"
+  when: users is defined

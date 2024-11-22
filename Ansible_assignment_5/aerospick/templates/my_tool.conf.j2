@@ -1,0 +1,20 @@
+# This is a sample configuration file for my_tool.
+# templates/aerospike.conf.j2
+service {
+    user {{ aerospike_user }}
+    group {{ aerospike_group }}
+    pidfile /var/run/aerospike/asd.pid
+}
+
+network {
+    service-address {{ ansible_default_ipv4.address }}  # Example dynamic IP address
+    service-port 3000
+}
+
+storage {
+    device /dev/sdb
+    filesys
+    directory /opt/aerospike/data
+    file-size 1024M
+}
+

@@ -1,0 +1,17 @@
+---
+# defaults file for aerospick
+# defaults/main.yml
+---
+aerospike_version: "5.7.0.6"  # Default Aerospike version
+aerospike_download_url: "https://www.aerospike.com/download/server/{{ aerospike_version }}/aerospike-server-{{ aerospike_version }}-ubuntu20.04.tgz"
+aerospike_config_file: "/etc/aerospike/aerospike.conf"
+
+# Platform-specific variables
+aerospike_packages:
+  ubuntu:
+    - "aerospike-server-enterprise"
+  centos:
+    - "aerospike-server-enterprise"
+
+# You can define other defaults if needed
+

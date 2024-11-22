@@ -1,0 +1,14 @@
+- name: Update package cache
+  ansible.builtin.apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Upgrade all packages to the latest version
+  ansible.builtin.apt:
+    upgrade: dist
+  when: ansible_os_family == "Debian"
+
+- name: Clean up unnecessary packages
+  ansible.builtin.apt:
+    autoclean: yes
+  when: ansible_os_family == "Debian"

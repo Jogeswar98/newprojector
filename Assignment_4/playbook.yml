@@ -1,0 +1,6 @@
+---
+  - name: System Manager Setup
+    hosts: all
+    become: yes
+    roles:
+      - role: system_manager

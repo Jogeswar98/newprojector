@@ -1,0 +1,7 @@
+---
+- name: Install required software packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ software_list }}"
+  when: software_list is defined

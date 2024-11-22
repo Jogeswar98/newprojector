@@ -1,0 +1,9 @@
+---
+- name: Install and configure Aerospike
+  hosts: all
+  become: yes
+  vars:
+    aerospike_version: "6.4.0.2"  # Specify Aerospike version here
+  roles:
+    - aerospike  # Ensure this matches the role directory name
+
